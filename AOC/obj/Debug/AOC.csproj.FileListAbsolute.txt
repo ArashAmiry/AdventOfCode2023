@@ -1,0 +1,8 @@
+C:\Users\Arash\Desktop\AOC2023\AOC\bin\Debug\AOC.exe.config
+C:\Users\Arash\Desktop\AOC2023\AOC\bin\Debug\AOC.exe
+C:\Users\Arash\Desktop\AOC2023\AOC\bin\Debug\AOC.pdb
+C:\Users\Arash\Desktop\AOC2023\AOC\obj\Debug\AOC.csproj.AssemblyReference.cache
+C:\Users\Arash\Desktop\AOC2023\AOC\obj\Debug\AOC.csproj.SuggestedBindingRedirects.cache
+C:\Users\Arash\Desktop\AOC2023\AOC\obj\Debug\AOC.csproj.CoreCompileInputs.cache
+C:\Users\Arash\Desktop\AOC2023\AOC\obj\Debug\AOC.exe
+C:\Users\Arash\Desktop\AOC2023\AOC\obj\Debug\AOC.pdb
