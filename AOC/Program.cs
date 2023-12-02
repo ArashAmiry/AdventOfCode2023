@@ -12,7 +12,8 @@ namespace AOC
         {
             Problem1 problem = new Problem1();
 
-            Console.WriteLine(problem.Solution1("C:\\Users\\Arash\\Desktop\\AOC2023\\AOC\\Inputs\\input1.txt"));
+            Console.WriteLine(problem.Solution2("C:\\Users\\Arash\\Desktop\\AOC2023\\AOC\\Inputs\\input1.txt"));
+            Console.ReadLine();
         }
     }
 }
