@@ -10,9 +10,9 @@ namespace AOC
     {
         static void Main(string[] args)
         {
-            Problem2 problem = new Problem2();
+            Problem3 problem = new Problem3();
 
-            Console.WriteLine(problem.Solution2("C:\\Users\\Arash\\Desktop\\AOC2023\\AOC\\Inputs\\input2.txt"));
+            Console.WriteLine(problem.Solution1("C:\\Users\\Arash\\Desktop\\AOC2023\\AOC\\Inputs\\input3.txt"));
             Console.ReadLine();
         }
     }
