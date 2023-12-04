@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AOC.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,47 @@ namespace AOC
             int sumOfNumbers = CalculateValidNumberSum(validNumbers);
 
             return sumOfNumbers;
+        }
+
+        public int Solution2(string filePath)
+        {
+            string[] lines = File.ReadAllLines(filePath);
+
+            char[,] matrix = CreateMatrixFromLines(lines);
+
+            var matrixHeight = matrix.GetLength(0);
+            var matrixLength = matrix.GetLength(1);
+
+            var currentNumber = "";
+            var gearDictionary = new Dictionary<Tuple<int,int>, List<string>>();
+
+            FindGearNumbers(gearDictionary, matrix, matrixLength, matrixHeight, ref currentNumber);
+
+            var filteredDictionary = FilterGearDictionary(gearDictionary);
+
+            int sum = CalculateGears(filteredDictionary);
+            return sum;
+        }
+
+        private int CalculateGears(Dictionary<Tuple<int, int>, List<int>> filteredDictionary)
+        {
+            var sum = 0;
+
+            foreach ( var kvp in filteredDictionary )
+            {
+                sum += kvp.Value.Aggregate((currentProduct, nextValue) => currentProduct * nextValue);
+            }
+
+            return sum;
+        }
+
+        private Dictionary<Tuple<int, int>, List<int>> FilterGearDictionary(Dictionary<Tuple<int, int>, List<string>> gearDictionary)
+        {
+            return gearDictionary
+            .Where(kv => kv.Value.Count == 2)
+            .ToDictionary(
+                kv => kv.Key,
+                kv => kv.Value.Select(int.Parse).ToList());
         }
 
         private int CalculateValidNumberSum(List<string> validNumbers)
@@ -74,6 +116,71 @@ namespace AOC
             return validNumbers;
         }
 
+        private void FindGearNumbers(Dictionary<Tuple<int, int>, List<string>> gearDictionary, char[,] matrix, int matrixLength, int matrixHeight, ref string currentNumber)
+        {
+            
+            for (int i = 0; i < matrixHeight; i++)
+            {
+                var gearNumberIndex = new List<Tuple<int, int>>();
+                List<Tuple<int, int>> uniqueList = new List<Tuple<int, int>>();
+
+                for (int j = 0; j < matrixLength; j++)
+                {
+                    if (Char.IsNumber(matrix[i, j]))
+                    {
+                        GetGearAdjacent(matrix, i, j, gearNumberIndex);
+                        currentNumber += matrix[i, j];
+                    }
+                    else
+                    {
+                        uniqueList = gearNumberIndex.Distinct().ToList();
+
+                        if (currentNumber != "")
+                        {
+                            foreach (var tuple in uniqueList)
+                            {
+                                if (gearDictionary.ContainsKey(tuple))
+                                {
+                                    gearDictionary[tuple].Add(currentNumber);
+                                }
+
+                                else
+                                {
+                                    gearDictionary.Add(tuple, new List<string>() { currentNumber });
+                                }
+                            }
+
+                            currentNumber = "";
+                        }
+
+                        gearNumberIndex = new List<Tuple<int, int>>();
+                    }
+                }
+
+                uniqueList = gearNumberIndex.Distinct().ToList();
+
+                if (currentNumber != "")
+                {
+                    foreach (var tuple in uniqueList)
+                    {
+                        if (gearDictionary.ContainsKey(tuple))
+                        {
+                            gearDictionary[tuple].Add(currentNumber);
+                        }
+
+                        else
+                        {
+                            gearDictionary.Add(tuple, new List<string>() { currentNumber });
+                        }
+                    }
+
+                    currentNumber = "";
+                }
+                
+            }
+
+        }
+
         private bool ValidateNumber(char[,] matrix, bool isValidNumber, int i, int j)
         {
             List<char> adjacentElements = GetAdjacent(matrix, i, j);
@@ -114,7 +221,35 @@ namespace AOC
             return true;
         }
 
-        private List<char> GetAdjacent(char[,] arr, int i, int j) {
+        private List<Tuple<int, int>> GetGearAdjacent(char[,] arr, int i, int j, List<Tuple<int, int>> v) {
+            // Size of given 2d array
+            var n = arr.GetLength(0);
+            var m = arr.GetLength(1);
+
+            // Checking for all the possible adjacent positions
+            if (isValidPos(i - 1, j - 1, n, m) && arr[i - 1, j - 1] == '*')
+            { v.Add(Tuple.Create(i - 1, j - 1)); }
+            if (isValidPos(i - 1, j, n, m) && arr[i - 1, j] == '*')
+            { v.Add(Tuple.Create(i - 1, j)); }
+            if (isValidPos(i - 1, j + 1, n, m) && arr[i - 1, j + 1] == '*')
+            { v.Add(Tuple.Create(i - 1, j + 1)); }
+            if (isValidPos(i, j - 1, n, m) && arr[i, j - 1] == '*')
+            { v.Add(Tuple.Create(i, j - 1)); }
+            if (isValidPos(i, j + 1, n, m) && arr[i, j + 1] == '*')
+            { v.Add(Tuple.Create(i, j + 1)); }
+            if (isValidPos(i + 1, j - 1, n, m) && arr[i + 1, j - 1] == '*')
+            { v.Add(Tuple.Create(i + 1, j - 1)); }
+            if (isValidPos(i + 1, j, n, m) && arr[i + 1, j] == '*')
+            { v.Add(Tuple.Create(i + 1, j)); }
+            if (isValidPos(i + 1, j + 1, n, m) && arr[i + 1, j + 1] == '*')
+            { v.Add(Tuple.Create(i + 1, j + 1)); }
+
+            // Returning the list
+            return v;
+        }
+
+        private List<char> GetAdjacent(char[,] arr, int i, int j)
+        {
             // Size of given 2d array
             var n = arr.GetLength(0);
             var m = arr.GetLength(1);
@@ -126,7 +261,7 @@ namespace AOC
 
             // Checking for all the possible adjacent positions
             if (isValidPos(i - 1, j - 1, n, m))
-            { v.Add(arr[i - 1,j - 1]); }
+            { v.Add(arr[i - 1, j - 1]); }
             if (isValidPos(i - 1, j, n, m))
             { v.Add(arr[i - 1, j]); }
             if (isValidPos(i - 1, j + 1, n, m))
