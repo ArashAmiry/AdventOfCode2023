@@ -1,0 +1,5 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+namespace AOC.Problem4{public class Solution1ShortVersion{public double Solution(string filePath){ string[] lines = File.ReadAllLines(filePath); var sum = 0.0; foreach (string line in lines) { sum += ParseCard(line); } return sum;} private double ParseCard(string card){int delimiterIndex = card.IndexOf(':');string cardValues = card.Substring(delimiterIndex + 1).Trim(); List<int> winningNumbers = cardValues.Split('|')[0].Trim().Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).Select(int.Parse).ToList(); List<int> arashNumbers = cardValues.Split('|')[1].Trim().Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).Select(int.Parse).ToList(); return Math.Pow(2, winningNumbers.Intersect(arashNumbers).Count() - 1) < 1 ? 0 : Math.Pow(2, winningNumbers.Intersect(arashNumbers).Count() - 1);}}}
