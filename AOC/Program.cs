@@ -11,7 +11,7 @@ namespace AOC
     {
         static void Main(string[] args)
         {
-            Solution1ShortVersion problem = new Solution1ShortVersion();
+            Solution2 problem = new Solution2();
 
             Console.WriteLine(problem.Solution("C:\\Users\\Arash\\Desktop\\AOC2023\\AOC\\Inputs\\input4.txt"));
             Console.ReadLine();
