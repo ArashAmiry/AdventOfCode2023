@@ -6,3 +6,10 @@ C:\Users\Arash\Desktop\AOC2023\AOC\obj\Debug\AOC.csproj.SuggestedBindingRedirect
 C:\Users\Arash\Desktop\AOC2023\AOC\obj\Debug\AOC.csproj.CoreCompileInputs.cache
 C:\Users\Arash\Desktop\AOC2023\AOC\obj\Debug\AOC.exe
 C:\Users\Arash\Desktop\AOC2023\AOC\obj\Debug\AOC.pdb
+C:\AdventOfCode2023\AOC\obj\Debug\AOC.csproj.AssemblyReference.cache
+C:\AdventOfCode2023\AOC\obj\Debug\AOC.csproj.CoreCompileInputs.cache
+C:\AdventOfCode2023\AOC\obj\Debug\AOC.exe
+C:\AdventOfCode2023\AOC\obj\Debug\AOC.pdb
+C:\AdventOfCode2023\AOC\bin\Debug\AOC.exe.config
+C:\AdventOfCode2023\AOC\bin\Debug\AOC.exe
+C:\AdventOfCode2023\AOC\bin\Debug\AOC.pdb

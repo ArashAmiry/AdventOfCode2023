@@ -13,7 +13,7 @@ namespace AOC
         {
             Solution1 problem = new Solution1();
 
-            Console.WriteLine(problem.Solution("C:\\AdventOfCode2023\\AOC\\Inputs\\testInput5.txt"));
+            Console.WriteLine(problem.Solution("C:\\AdventOfCode2023\\AOC\\Inputs\\input5.txt"));
             Console.ReadLine();
         }
     }

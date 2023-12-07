@@ -23,15 +23,8 @@ namespace AOC.Problem5
             {
                 // Value to search for
                 long searchValue = Int64.Parse(seeds[i]);
-                var seedToSoil = MappingValues(chunks[1], searchValue);
-                var soilToFertilizer = MappingValues(chunks[2], seedToSoil);
-                var fertilizerToWater = MappingValues(chunks[3], soilToFertilizer);
-                var waterToLight = MappingValues(chunks[4], fertilizerToWater);
-                var lightToTemperature = MappingValues(chunks[5], waterToLight);
-                var temperatureToHumidity = MappingValues(chunks[6], lightToTemperature);
-                var humidityToLocation = MappingValues(chunks[7], temperatureToHumidity);
-
-                locationValues.Add(humidityToLocation);
+                var seedToLocation = MappingValues(chunks, searchValue, 1);
+                locationValues.Add(seedToLocation);
             }
             return locationValues.Min();
         }
@@ -65,18 +58,35 @@ namespace AOC.Problem5
             return chunks;
         }
 
-        private long MappingValues(string[] chunk, long searchValue)
+        private long MappingValues(List<string[]> chunks, long searchValue, int index)
         {
-            for (int i = 1; i < chunk.Length; i++)
+
+            if (index >= chunks.Count - 1)
             {
-                var values = chunk[i].Split(' ');
+                for (int i = 1; i < chunks[index].Length; i++)
+                {
+                    var values = chunks[index][i].Split(' ');
+
+                    if (searchValue >= Int64.Parse(values[1]) && searchValue < Int64.Parse(values[1]) + Int64.Parse(values[2]))
+                    {
+                        return searchValue + (Int64.Parse(values[0]) - Int64.Parse(values[1]));
+                    }
+                }
+
+                return searchValue;
+            }
+
+            for (int i = 1; i < chunks[index].Length; i++)
+            {
+                var values = chunks[index][i].Split(' ');
 
                 if (searchValue >= Int64.Parse(values[1]) && searchValue < Int64.Parse(values[1]) + Int64.Parse(values[2])){
-                    return searchValue + (Int64.Parse(values[0]) - Int64.Parse(values[1]));
+                    
+                    return MappingValues(chunks, searchValue + (Int64.Parse(values[0]) - Int64.Parse(values[1])), index + 1);
                 }
             }
 
-            return searchValue;
+            return MappingValues(chunks, searchValue, index + 1);
         }
     }
 }
