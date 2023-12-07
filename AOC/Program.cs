@@ -1,4 +1,4 @@
-﻿using AOC.Problem4;
+﻿using AOC.Problem5;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +11,9 @@ namespace AOC
     {
         static void Main(string[] args)
         {
-            Solution2 problem = new Solution2();
+            Solution1 problem = new Solution1();
 
-            Console.WriteLine(problem.Solution("C:\\Users\\Arash\\Desktop\\AOC2023\\AOC\\Inputs\\input4.txt"));
+            Console.WriteLine(problem.Solution("C:\\AdventOfCode2023\\AOC\\Inputs\\testInput5.txt"));
             Console.ReadLine();
         }
     }
